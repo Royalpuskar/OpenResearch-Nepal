@@ -1,0 +1,118 @@
+[
+  {
+    "input": {},
+    "expected": {
+      "missing_metadata": [
+        "question",
+        "method",
+        "dataset",
+        "limitations",
+        "seed"
+      ],
+      "summary": [],
+      "reproducibility_status": "incomplete"
+    }
+  },
+  {
+    "input": {
+      "runs": [
+        {
+          "id": "a",
+          "group": "baseline",
+          "value": 3
+        }
+      ]
+    },
+    "expected": {
+      "missing_metadata": [
+        "question",
+        "method",
+        "dataset",
+        "limitations",
+        "seed"
+      ],
+      "summary": [
+        {
+          "group": "baseline",
+          "n": 1,
+          "mean": 3,
+          "min": 3,
+          "max": 3,
+          "sample_sd": null
+        }
+      ],
+      "reproducibility_status": "incomplete"
+    }
+  },
+  {
+    "input": {
+      "metadata": {
+        "question": "demo",
+        "method": "fixture",
+        "dataset": "synthetic",
+        "limitations": "toy",
+        "seed": 0
+      }
+    },
+    "expected": {
+      "missing_metadata": [],
+      "summary": [],
+      "reproducibility_status": "metadata-present-not-independently-verified"
+    }
+  },
+  {
+    "input": {
+      "metadata": {
+        "question": "How do two synthetic configurations compare?",
+        "method": "Descriptive comparison of supplied toy observations",
+        "dataset": "Synthetic demonstration only",
+        "limitations": "No real-world conclusions; not a benchmark",
+        "seed": 7
+      },
+      "runs": [
+        {
+          "id": "a1",
+          "group": "baseline",
+          "value": 10
+        },
+        {
+          "id": "a2",
+          "group": "baseline",
+          "value": 12
+        },
+        {
+          "id": "b1",
+          "group": "candidate",
+          "value": 8
+        },
+        {
+          "id": "b2",
+          "group": "candidate",
+          "value": 10
+        }
+      ]
+    },
+    "expected": {
+      "missing_metadata": [],
+      "summary": [
+        {
+          "group": "baseline",
+          "n": 2,
+          "mean": 11.0,
+          "min": 10,
+          "max": 12,
+          "sample_sd": 1.4142135623730951
+        },
+        {
+          "group": "candidate",
+          "n": 2,
+          "mean": 9.0,
+          "min": 8,
+          "max": 10,
+          "sample_sd": 1.4142135623730951
+        }
+      ],
+      "reproducibility_status": "metadata-present-not-independently-verified"
+    }
+  }
+]

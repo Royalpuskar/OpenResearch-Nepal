@@ -1,0 +1,22 @@
+{
+  "missing_metadata": [],
+  "summary": [
+    {
+      "group": "baseline",
+      "n": 2,
+      "mean": 11.0,
+      "min": 10,
+      "max": 12,
+      "sample_sd": 1.4142135623730951
+    },
+    {
+      "group": "candidate",
+      "n": 2,
+      "mean": 9.0,
+      "min": 8,
+      "max": 10,
+      "sample_sd": 1.4142135623730951
+    }
+  ],
+  "reproducibility_status": "metadata-present-not-independently-verified"
+}

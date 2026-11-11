@@ -1,0 +1,9 @@
+const hex=b=>Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');
+const sha=async s=>{if(typeof s!=='string')throw Error('Artifact content must be text');return hex(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s))));};
+const canonical=v=>Array.isArray(v)?'['+v.map(canonical).join(',')+']':v&&typeof v==='object'?'{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}':JSON.stringify(v);
+export async function analyze(d){
+if(!d||typeof d!=='object'||Array.isArray(d))throw Error('Input must be a JSON object');
+const raw=JSON.stringify(d);if(raw.length>100000)throw Error('Scenario exceeds 100 KB limit');
+function inspect(v,depth=0){if(depth>15)throw Error('Input nesting exceeds 15 levels');if(Array.isArray(v)&&v.length>1000)throw Error('Maximum 1000 items per array');if(v&&typeof v==='object'){for(const [k,x] of Object.entries(v)){if(['__proto__','constructor','prototype'].includes(k))throw Error('Reserved input key');inspect(x,depth+1);}}if(typeof v==='number'&&!Number.isFinite(v))throw Error('Numbers must be finite');}inspect(d);
+const m=d.metadata||{},required=['question','method','dataset','limitations','seed'],missing=required.filter(k=>m[k]===undefined||m[k]===null||m[k]===''),runs=d.runs||[],groups=new Map();if(new Set(runs.map(r=>r.id)).size!==runs.length)throw Error('Duplicate run ids');for(const r of runs){if(!Number.isFinite(r.value))throw Error('Run values must be finite numbers');if(!groups.has(r.group))groups.set(r.group,[]);groups.get(r.group).push(r.value);}const summary=[...groups.keys()].sort().map(group=>{const v=groups.get(group),mean=v.reduce((a,b)=>a+b,0)/v.length;return{group,n:v.length,mean,min:Math.min(...v),max:Math.max(...v),sample_sd:v.length>1?Math.sqrt(v.reduce((s,x)=>s+(x-mean)**2,0)/(v.length-1)):null};});return{missing_metadata:missing,summary,reproducibility_status:missing.length?'incomplete':'metadata-present-not-independently-verified'};
+}

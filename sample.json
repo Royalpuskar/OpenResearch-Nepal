@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "question": "How do two synthetic configurations compare?",
+    "method": "Descriptive comparison of supplied toy observations",
+    "dataset": "Synthetic demonstration only",
+    "limitations": "No real-world conclusions; not a benchmark",
+    "seed": 7
+  },
+  "runs": [
+    {
+      "id": "a1",
+      "group": "baseline",
+      "value": 10
+    },
+    {
+      "id": "a2",
+      "group": "baseline",
+      "value": 12
+    },
+    {
+      "id": "b1",
+      "group": "candidate",
+      "value": 8
+    },
+    {
+      "id": "b2",
+      "group": "candidate",
+      "value": 10
+    }
+  ]
+}
